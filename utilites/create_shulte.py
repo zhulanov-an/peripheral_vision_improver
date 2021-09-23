@@ -63,7 +63,7 @@ def _get_line_coordinates(num_by_side: int) -> list:
 
 
 def _draw_cell(d, coordinate_lines, size_rectangle, color="black", width=5):
-    d.rectangle((0, 0, size_rectangle, size_rectangle), outline=color, width=width)
+    d.rectangle((0, 0, size_rectangle, size_rectangle), outline=color, width=width * 2)
     for coord in coordinate_lines:
         d.line(coord, fill=color, width=width)
 
@@ -91,3 +91,9 @@ def create_(num_by_side, size_by_side, background="white"):
     steps = _get_steps(num_by_side)
     _draw_num(d, size_by_side_cell, steps)
     img.save(f'images/shulte_{num_by_side}_x_{num_by_side}.png')
+
+
+def create_all_tables():
+    create_(num_by_side=3, size_by_side=450)
+    create_(num_by_side=5, size_by_side=750)
+    create_(num_by_side=7, size_by_side=1050)
