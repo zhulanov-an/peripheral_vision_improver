@@ -9,6 +9,32 @@ _coordinate_lines_3_x_3 = [
     (300, 0, 300, 450)
 ]
 
+_coordinate_lines_5_x_5 = [
+    (0, 150, 750, 150),
+    (0, 300, 750, 300),
+    (0, 450, 750, 450),
+    (0, 600, 750, 600),
+    (150, 0, 150, 750),
+    (300, 0, 300, 750),
+    (450, 0, 450, 750),
+    (600, 0, 600, 750)
+]
+
+_coordinate_lines_7_x_7 = [
+    (0, 150, 1050, 150),
+    (0, 300, 1050, 300),
+    (0, 450, 1050, 450),
+    (0, 600, 1050, 600),
+    (0, 750, 1050, 750),
+    (0, 900, 1050, 900),
+    (150, 0, 150, 1050),
+    (300, 0, 300, 1050),
+    (450, 0, 450, 1050),
+    (600, 0, 600, 1050),
+    (750, 0, 750, 1050),
+    (900, 0, 900, 1050)
+]
+
 
 def _get_odd_list(len_: int) -> list:
     cnt = 1
@@ -28,6 +54,10 @@ def _get_steps(num_by_side: int) -> list:
 def _get_line_coordinates(num_by_side: int) -> list:
     if num_by_side == 3:
         return _coordinate_lines_3_x_3
+    elif num_by_side == 5:
+        return _coordinate_lines_5_x_5
+    elif num_by_side == 7:
+        return _coordinate_lines_7_x_7
     else:
         raise RuntimeError(f'Количество ячеек {num_by_side} не поддерживается')
 
