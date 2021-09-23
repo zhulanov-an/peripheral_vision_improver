@@ -90,4 +90,4 @@ def create_(num_by_side, size_by_side, background="white"):
     size_by_side_cell = size_by_side / num_by_side
     steps = _get_steps(num_by_side)
     _draw_num(d, size_by_side_cell, steps)
-    img.save(f'images/cells_{num_by_side}_x_{num_by_side}.png')
+    img.save(f'images/shulte_{num_by_side}_x_{num_by_side}.png')
