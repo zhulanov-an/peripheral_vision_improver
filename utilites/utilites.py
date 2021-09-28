@@ -14,7 +14,5 @@ def get_emoji(user_data):
     return user_data["emoji"]
 
 
-def get_keyboard():
-    # TODO сделать полуяение из .env, но нужно разобраться с load_env vs import
-    # как сделать так, что импорт начинается после загрузки переменных среды?
+def get_keyboard_for_shulte():
     return ReplyKeyboardMarkup([["/shulte 3", "/shulte 5", "/shulte 7"]])

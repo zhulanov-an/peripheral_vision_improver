@@ -1,7 +1,7 @@
 from telegram import ReplyKeyboardMarkup
 
-from utilites.create_shulte import create_all_tables
-from utilites.utilites import get_emoji, get_keyboard
+from trainers.create_shulte import create_all_tables
+from utilites.utilites import get_emoji, get_keyboard_for_shulte
 
 
 def greet_user(update, context):
@@ -11,7 +11,7 @@ def greet_user(update, context):
     text = f"Здравствуй, пользователь {username} {context.user_data['emoji']}! " \
            f"Это бот для тренировки периферийного зрения и памяти! Введите /shulte <num_cell> и получите " \
            f"таблицу Шульте! Доступны варианты на 3, 5, 7 ячеек"
-    update.message.reply_text(text, reply_markup=get_keyboard())
+    update.message.reply_text(text, reply_markup=get_keyboard_for_shulte())
 
 
 def talk_to_me(update, context):
@@ -19,7 +19,7 @@ def talk_to_me(update, context):
     username = update.effective_user.first_name
     text = update.message.text
     update.message.reply_text(f"Здравствуй, {username} {context.user_data['emoji']}! Ты написал: {text}",
-                              reply_markup=get_keyboard())
+                              reply_markup=get_keyboard_for_shulte())
 
 
 def send_shulte(update, context):
@@ -33,7 +33,7 @@ def send_shulte(update, context):
             raise ValueError
     except (ValueError, IndexError):
         update.message.reply_text("введите количество ячеек в формате /shulte <num>(доступно 3, 5, 7)",
-                                  reply_markup=get_keyboard())
+                                  reply_markup=get_keyboard_for_shulte())
 
     if cnt_cells == 3:
         path_to_pict = "images/shulte_3_x_3.png"
