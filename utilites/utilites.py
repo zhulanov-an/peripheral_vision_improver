@@ -1,7 +1,6 @@
 from random import choice
 
 from emoji import emojize
-from telegram import ReplyKeyboardMarkup
 
 import settings
 
@@ -12,7 +11,3 @@ def get_emoji(user_data):
         smile = emojize(smile, use_aliases=True)
         user_data["emoji"] = smile
     return user_data["emoji"]
-
-
-def get_keyboard_for_shulte():
-    return ReplyKeyboardMarkup([["/shulte 3", "/shulte 5", "/shulte 7"]])

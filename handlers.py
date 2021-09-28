@@ -1,7 +1,8 @@
 from telegram import ReplyKeyboardMarkup
 
-from trainers.create_shulte import create_all_tables
-from utilites.utilites import get_emoji, get_keyboard_for_shulte
+from trainers.shulte.create_shulte import create_all_tables
+from trainers.shulte.keyboards import get_keyboard_for_shulte
+from utilites.utilites import get_emoji
 
 
 def greet_user(update, context):
