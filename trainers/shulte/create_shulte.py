@@ -68,7 +68,13 @@ def _draw_cell(d, coordinate_lines, size_rectangle, color="black", width=5):
         d.line(coord, fill=color, width=width)
 
 
-def _draw_num(d, size_step: int, steps: list, size_font=50, font="arial.ttf", color_font="black"):
+def _draw_num(d,
+              size_step: int,
+              steps: list,
+              size_font=50,
+              font="arial.ttf",
+              color_font="black",
+              middle_color="red"):
     font = ImageFont.truetype(font, size_font)
     points = list()
     for p_1 in steps:
@@ -77,8 +83,11 @@ def _draw_num(d, size_step: int, steps: list, size_font=50, font="arial.ttf", co
 
     nums = [str(i) for i in range(1, sum(steps) + 1)]
     random.shuffle(nums)
-
+    middle_elem = nums[int(len(nums) / 2)]
     for point, num in zip(points, nums):
+        if num == middle_elem:
+            d.text(point, text=num, fill=middle_color, font=font, anchor="mm")
+            continue
         d.text(point, text=num, fill=color_font, font=font, anchor="mm")
 
 
