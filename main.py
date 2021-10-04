@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
-from handlers import greet_user, send_shulte, talk_to_me
+from handlers import greet_user, send_shulte, talk_to_me, send_pyramid
 
 logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO,
@@ -28,6 +28,7 @@ def main():
     dp = shulte_bot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(CommandHandler("shulte", send_shulte))
+    dp.add_handler(CommandHandler("pyramid", send_pyramid))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     shulte_bot.start_polling()
