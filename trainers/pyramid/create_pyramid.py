@@ -1,18 +1,17 @@
 from PIL import Image, ImageDraw, ImageFont
-#from rusyll import rusyll
 import random
 
 
 def created_img():
     """Тут содаётся белый фон для пирамиды"""
-    img = Image.new('RGBA', (400, 400), 'white')
+    img = Image.new('RGBA', (400, 300), 'white')
     return img
 
 
 def sorted_words():
     """Тут мы отсеиваем подходящие слова из файла"""
     words = []
-    with open('word_rus.txt', 'r') as file:
+    with open('trainers/pyramid/word_rus.txt', 'r') as file:
         for line in file:
             if len(line.strip()) == 4:
                 words.append(line.strip())
@@ -26,19 +25,20 @@ def format_word(words=random.sample(sorted_words(), 5)):
     formated_text = []
     for word in words:
         space = " " * num
-        formated_text.append(f"{word[:2]}{space}|{space}{word[2:]}")
-        num = num + 6
+        formated_text.append(f"{word[:2]}{space}*{space}{word[2:]}")
+        num = num + 3
     return formated_text
 
 
-def create_pyramid(text=format_word(), img=created_img()):
+def create_pyramid(img = created_img()):
     """Строим из полученых слов пирамиду"""
     # Чтобы пирамида была ровной используем свободный моноширный шрифт
-    font = ImageFont.truetype('Montserrat-Medium.ttf', 18)
+    font = ImageFont.truetype('font/Fira_Code/static/FiraCode-Regular.ttf', 18)
     # Получаем размер изображения на котором будет строится пирамида
     W,H = img.size
     # Переменая для отсупов между словами по высоте
     space = 0
+    text = format_word()
     for word in text:
         # Получаем размер слова
         w,h = font.getsize(word)
@@ -51,5 +51,4 @@ def create_pyramid(text=format_word(), img=created_img()):
             font=font,
             fill=('#000000'),
             )
-
-    img.show()
+    return img.save('images/pyramid.png')
