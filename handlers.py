@@ -2,6 +2,7 @@ from telegram import ReplyKeyboardMarkup
 
 from trainers.shulte.create_shulte import create_all_tables
 from trainers.shulte.keyboards import get_keyboard_for_shulte
+from trainers.pyramid.create_pyramid import create_pyramid
 from utilites.utilites import get_emoji
 
 
@@ -44,3 +45,9 @@ def send_shulte(update, context):
         path_to_pict = "images/shulte_7_x_7.png"
 
     context.bot.send_photo(chat_id=chat_id, photo=open(path_to_pict, 'rb'))
+
+
+def send_pyramid(update, context):
+    create_pyramid()
+    chat_id = update.effective_chat.id
+    context.bot.send_photo(chat_id=chat_id, photo=open('images/pyramid.png', 'rb'))
