@@ -72,7 +72,7 @@ def _draw_num(d,
               size_step: int,
               steps: list,
               size_font=50,
-              font="arial.ttf",
+              font="font/Fira_Code/static/FiraCode-Medium.ttf",
               color_font="black",
               middle_color="red"):
     font = ImageFont.truetype(font, size_font)
