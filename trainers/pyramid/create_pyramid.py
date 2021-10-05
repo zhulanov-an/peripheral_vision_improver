@@ -18,11 +18,13 @@ def sorted_words():
     return words
     
 
-def format_word(words=random.sample(sorted_words(), 5)):
+def format_word():
     """Из колекции слов выбираем случайные 5 штук и форматируем их для пирамиды,
      делим по полам, вставляем пробелы, и по центру разделитель"""
     num = 2
     formated_text = []
+    # Выбираем случайные слова пять штук
+    words = random.sample(sorted_words(), 5)
     for word in words:
         space = " " * num
         formated_text.append(f"{word[:2]}{space}*{space}{word[2:]}")
@@ -30,8 +32,10 @@ def format_word(words=random.sample(sorted_words(), 5)):
     return formated_text
 
 
-def create_pyramid(img = created_img()):
+def create_pyramid():
     """Строим из полученых слов пирамиду"""
+    #Создаём новое изображение 
+    img = created_img()
     # Чтобы пирамида была ровной используем свободный моноширный шрифт
     font = ImageFont.truetype('font/Fira_Code/static/FiraCode-Regular.ttf', 18)
     # Получаем размер изображения на котором будет строится пирамида
@@ -42,7 +46,7 @@ def create_pyramid(img = created_img()):
     for word in text:
         # Получаем размер слова
         w,h = font.getsize(word)
-        
+        #добавляем отступ
         space = space + 40
         idraw = ImageDraw.Draw(img)
         idraw.text(
@@ -51,4 +55,5 @@ def create_pyramid(img = created_img()):
             font=font,
             fill=('#000000'),
             )
+    #Сохраняем получившуюся картинку
     return img.save('images/pyramid.png')
