@@ -1,5 +1,3 @@
-from telegram import ReplyKeyboardMarkup
-
 from trainers.shulte.create_shulte import create_all_tables
 from trainers.shulte.keyboards import get_keyboard_for_shulte
 from trainers.pyramid.create_pyramid import create_pyramid
@@ -47,6 +45,11 @@ def send_shulte(update, context):
 
 
 def send_pyramid(update, context):
-    create_pyramid()
+    #Пробуем получить число из сообщения, если не получится отправим запрос на 5 слов
+    try:
+        num = int(update.message.text.split()[-1])
+        create_pyramid(num)
+    except:
+        create_pyramid()
     chat_id = update.effective_chat.id
     context.bot.send_photo(chat_id=chat_id, photo=open('images/pyramid.png', 'rb'))
