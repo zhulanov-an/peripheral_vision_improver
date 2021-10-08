@@ -1,14 +1,12 @@
-from telegram import ReplyKeyboardMarkup
-
 from trainers.shulte.create_shulte import create_all_tables
 from trainers.shulte.keyboards import get_keyboard_for_shulte
+from trainers.pyramid.create_pyramid import create_pyramid
 from utilites.utilites import get_emoji
 
 
 def greet_user(update, context):
     username = update.effective_user.first_name
     context.user_data['emoji'] = get_emoji(context.user_data)
-    keyboard = ReplyKeyboardMarkup([["/shulte 3", "/shulte 5", "/shulte 7"]])
     text = f"Здравствуй, пользователь {username} {context.user_data['emoji']}! " \
            f"Это бот для тренировки периферийного зрения и памяти! Введите /shulte <num_cell> и получите " \
            f"таблицу Шульте! Доступны варианты на 3, 5, 7 ячеек"
@@ -44,3 +42,14 @@ def send_shulte(update, context):
         path_to_pict = "images/shulte_7_x_7.png"
 
     context.bot.send_photo(chat_id=chat_id, photo=open(path_to_pict, 'rb'))
+
+
+def send_pyramid(update, context):
+    #Пробуем получить число из сообщения, если не получится отправим запрос на 5 слов
+    try:
+        num = int(update.message.text.split()[-1])
+        create_pyramid(num)
+    except:
+        create_pyramid()
+    chat_id = update.effective_chat.id
+    context.bot.send_photo(chat_id=chat_id, photo=open('images/pyramid.png', 'rb'))
