@@ -9,7 +9,6 @@ from utilites.utilites import get_emoji
 def greet_user(update, context):
     username = update.effective_user.first_name
     context.user_data['emoji'] = get_emoji(context.user_data)
-    keyboard = ReplyKeyboardMarkup([["/shulte 3", "/shulte 5", "/shulte 7"]])
     text = f"Здравствуй, пользователь {username} {context.user_data['emoji']}! " \
            f"Это бот для тренировки периферийного зрения и памяти! Введите /shulte <num_cell> и получите " \
            f"таблицу Шульте! Доступны варианты на 3, 5, 7 ячеек"
