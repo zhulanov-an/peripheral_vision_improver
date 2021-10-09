@@ -1,5 +1,5 @@
 from trainers.shulte.create_shulte import create_all_tables
-from trainers.shulte.keyboards import get_keyboard_for_shulte
+from common.keyboards import get_keyboard
 from trainers.pyramid.create_pyramid import create_pyramid
 from utilites.utilites import get_emoji
 
@@ -10,7 +10,7 @@ def greet_user(update, context):
     text = f"Здравствуй, пользователь {username} {context.user_data['emoji']}! " \
            f"Это бот для тренировки периферийного зрения и памяти! Введите /shulte <num_cell> и получите " \
            f"таблицу Шульте! Доступны варианты на 3, 5, 7 ячеек"
-    update.message.reply_text(text, reply_markup=get_keyboard_for_shulte())
+    update.message.reply_text(text, reply_markup=get_keyboard())
 
 
 def talk_to_me(update, context):
@@ -18,7 +18,7 @@ def talk_to_me(update, context):
     username = update.effective_user.first_name
     text = update.message.text
     update.message.reply_text(f"Здравствуй, {username} {context.user_data['emoji']}! Ты написал: {text}",
-                              reply_markup=get_keyboard_for_shulte())
+                              reply_markup=get_keyboard())
 
 
 def send_shulte(update, context):
@@ -27,12 +27,14 @@ def send_shulte(update, context):
     chat_id = update.effective_chat.id
     create_all_tables()
     try:
-        cnt_cells = int(context.args[0])
+        # TODO не понятно как в кнопке передать параметр, при этом на изображении кнопки его не выводить
+        # выдаю средний размер
+        cnt_cells = 5
         if cnt_cells not in (3, 5, 7):
             raise ValueError
     except (ValueError, IndexError):
         update.message.reply_text("введите количество ячеек в формате /shulte <num>(доступно 3, 5, 7)",
-                                  reply_markup=get_keyboard_for_shulte())
+                                  reply_markup=get_keyboard())
 
     if cnt_cells == 3:
         path_to_pict = "images/shulte_3_x_3.png"
@@ -44,12 +46,17 @@ def send_shulte(update, context):
     context.bot.send_photo(chat_id=chat_id, photo=open(path_to_pict, 'rb'))
 
 
+def send_alphabet(update, context):
+    # пок азаглушку на шульте
+    send_shulte(update, context)
+
+
 def send_pyramid(update, context):
-    #Пробуем получить число из сообщения, если не получится отправим запрос на 5 слов
+    # Пробуем получить число из сообщения, если не получится отправим запрос на 5 слов
     try:
-        num = int(update.message.text.split()[-1])
-        create_pyramid(num)
-    except:
-        create_pyramid()
+        height = int(update.message.text.split()[-1])
+    except ValueError:
+        height = 5
+    create_pyramid(height)
     chat_id = update.effective_chat.id
     context.bot.send_photo(chat_id=chat_id, photo=open('images/pyramid.png', 'rb'))

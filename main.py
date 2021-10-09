@@ -27,9 +27,9 @@ def main():
 
     dp = shulte_bot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
-    dp.add_handler(CommandHandler("shulte", send_shulte))
-    dp.add_handler(CommandHandler("pyramid", send_pyramid))
-    dp.add_handler(MessageHandler(Filters.regex("^(Пирамида\s?\d?)$"), send_pyramid ))
+    dp.add_handler(MessageHandler(Filters.regex("^(Шульте)$"), send_shulte))
+    dp.add_handler(MessageHandler(Filters.regex("^(Алфавит)$"), send_shulte))
+    dp.add_handler(MessageHandler(Filters.regex("^(Пирамида)$"), send_pyramid))
     dp.add_handler(MessageHandler(Filters.text, talk_to_me))
 
     shulte_bot.start_polling()
