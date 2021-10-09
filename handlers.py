@@ -1,3 +1,7 @@
+import os
+
+from settings import IMAGE_DIR
+from trainers.alphabet.create_alphabet import create_alphabet
 from trainers.shulte.create_shulte import create_all_tables
 from common.keyboards import get_keyboard
 from trainers.pyramid.create_pyramid import create_pyramid
@@ -37,18 +41,19 @@ def send_shulte(update, context):
                                   reply_markup=get_keyboard())
 
     if cnt_cells == 3:
-        path_to_pict = "images/shulte_3_x_3.png"
+        path_to_pict = os.path.join(IMAGE_DIR, "shulte_3_x_3.png")
     elif cnt_cells == 5:
-        path_to_pict = "images/shulte_5_x_5.png"
+        path_to_pict = os.path.join(IMAGE_DIR, "shulte_5_x_5.png")
     elif cnt_cells == 7:
-        path_to_pict = "images/shulte_7_x_7.png"
+        path_to_pict = os.path.join(IMAGE_DIR, "shulte_7_x_7.png")
 
     context.bot.send_photo(chat_id=chat_id, photo=open(path_to_pict, 'rb'))
 
 
 def send_alphabet(update, context):
-    # пок азаглушку на шульте
-    send_shulte(update, context)
+    chat_id = update.effective_chat.id
+    create_alphabet()
+    context.bot.send_photo(chat_id=chat_id, photo=open(os.path.join(IMAGE_DIR, 'alphabet.png'), 'rb'))
 
 
 def send_pyramid(update, context):
@@ -59,4 +64,4 @@ def send_pyramid(update, context):
         height = 5
     create_pyramid(height)
     chat_id = update.effective_chat.id
-    context.bot.send_photo(chat_id=chat_id, photo=open('images/pyramid.png', 'rb'))
+    context.bot.send_photo(chat_id=chat_id, photo=open(os.path.join(IMAGE_DIR, 'pyramid.png'), 'rb'))
