@@ -8,6 +8,30 @@ from settings import FONT_PATH, IMAGE_DIR
 ALPHABET = list("абвгдеёжзийклмнопрстуфхцчшщъыьэюя")
 
 
+def random_line(d):
+    d.ellipse(
+        (random.sample(range(50, 950, 100), 4)),
+        fill='white',
+        outline='black',
+        )
+    d.rectangle(
+        random.sample(range(0, 1000, 100), 4),
+        width=2,
+        fill='white',
+        outline='black'    
+        )
+
+    d.line(random.sample(range(0, 1000, 100), 4), width=3)
+
+    d.polygon(
+        (random.sample(range(50, 950, 100), 4)),
+        fill='white',
+        outline='black',
+        )
+    
+    d.line((random.sample(range(50, 950, 100), 4)), width=2)
+
+
 def _draw_letters(d):
     h_points = list(range(100, 900, 30))
     w_points = list(range(100, 900, 30))
@@ -38,6 +62,8 @@ def _draw_letter(d,
 def create_alphabet(size_by_side=1000, background="white"):
     img = Image.new('RGB', (size_by_side, size_by_side), color=background)
     d = ImageDraw.Draw(img)
+    repeat = [random_line(d) for _ in range(5)]
+    repeat
     _draw_letters(d)
     img.save(os.path.join(IMAGE_DIR, 'alphabet.png'))
 
