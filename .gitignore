@@ -131,3 +131,6 @@ dmypy.json
 .idea/
 images/*.png
 setenv.sh
+.vscode/
+.gitignore
+pyrightconfig.json
